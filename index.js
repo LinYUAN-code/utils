@@ -1,5 +1,6 @@
 var AipOcrClient = require("baidu-aip-sdk").ocr;
 var fs = require("fs");
+const convert = require("heic-convert");
 const vCardsJS = require("vcards-js");
 const APP_ID = "28208072";
 const API_KEY = "Qmq4aFn1GpK5M5mymBLWEYYk";
@@ -57,7 +58,7 @@ function getPhone(str) {
 
 async function reconizePhoneNumber(image) {
   const res = await client.numbers(image);
-  //   console.log("reconizePhoneNumber: ", res);
+  // console.log("reconizePhoneNumber: ", res);
   const ans = [];
   for (let x of res.words_result) {
     const phone = getPhone(
@@ -87,7 +88,19 @@ async function reconizeHandMadePhoneNumber(image) {
 }
 
 async function handleImage(str, type) {
-  const image = fs.readFileSync(str).toString("base64");
+  console.log(str);
+  let image = fs.readFileSync(str);
+  if (str.indexOf(".heic") !== -1 || str.indexOf(".HEIC") !== -1) {
+    try {
+      image = await convert({
+        buffer: image, // the HEIC file buffer
+        format: "JPEG", // output format
+        quality: 0.1,
+      });
+    } catch (e) {}
+    fs.writeFileSync("./" + str.split(".")[1] + ".jpeg", image);
+  }
+  image = image.toString("base64");
   switch (type) {
     case 1:
       return await reconizePhoneNumber(image);

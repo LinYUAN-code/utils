@@ -1,1 +1,9 @@
 node_modules/
+**/**.HEIC
+**/**.png
+**/**.PNG
+**/**.jpeg
+**/**.jpg
+**/**.JPG
+**/**.JPEG
+
