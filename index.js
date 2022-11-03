@@ -8,13 +8,16 @@ const SECRET_KEY = "cPlheIqA160A8qp7e0uov1Peb3ROEm8W";
 var client = new AipOcrClient(APP_ID, API_KEY, SECRET_KEY);
 let total = 0;
 let succ = 0;
+const jsonFS = fs.readFileSync("./config.json").toString("utf-8");
+const config = JSON.parse(jsonFS);
+console.log(config);
 
 function makeVCF(phone) {
   let vCard = vCardsJS();
   // Set contact properties
-  vCard.lastName = "房东";
+  vCard.lastName = config.namePrefix;
   vCard.middleName = "";
-  vCard.firstName = phone;
+  vCard.firstName = config.startIndex++;
   vCard.organization = "发展房东";
   vCard.title = "Technical Writer";
   vCard.email = "xxx@example.com";
