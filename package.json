@@ -1,0 +1,17 @@
+{
+  "name": "imagerecon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "baidu-aip-sdk": "^4.16.8",
+    "koa": "^2.13.4",
+    "vcards-js": "^2.10.0"
+  }
+}
